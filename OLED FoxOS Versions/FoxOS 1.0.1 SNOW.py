@@ -37,11 +37,16 @@ def boot():
     display.clear()
     
 def menuone():
+    display.draw_rectangle(0, 0, 128, 64)
+    display.draw_text(10,25,"Radio",bally)
+    display.draw_text(64,25,"Weather",bally)
+    display.fill_circle(25,45,5)
+    display.fill_circle(87,45,5)
+    display.present()
     while True:
-        display.draw_rectangle(0, 0, 128, 64)
-        if btnone.is_pressed():
+        if btnone.is_pressed:
             loadradio()
-        elif btntwo.is_pressed():
+        elif btntwo.is_pressed:
             weathereport()
 
 def changefreq():
@@ -64,7 +69,7 @@ def loadradio():
     display.clear()
     sleep(1)
     Radio.mute = False
-    Radio.set_frequency(radio,101.7)
+    Radio.set_frequency(radio,104.3)
     display.clear()
     display.draw_rectangle(0,0,128,64)
     display.draw_text(3,3,"Fox Radio",bally)
@@ -72,22 +77,6 @@ def loadradio():
     display.draw_text(3,39,"Change Frequency",bally)
     display.draw_text(3,48,"Exit",bally)
     display.present()
-    while True:
-        if vertselect.value <= .50:
-            display.draw_text(3,39,"Change Frequency",bally, invert = True)
-            display.draw_text(3,48,"Exit",bally, invert = False)
-        else:
-            display.draw_text(3,39,"Change Frequency",bally, invert = False)
-            display.draw_text(3,48,"Exit",bally, invert = True)
-        if btn.is_pressed:
-            if vertselect.value <= .5:
-                changefreq()
-            else:
-                display.clear()
-                sleep(1)
-                menuone()
-                break
-        display.present()
 
 def weathereport():
     display.clear()
@@ -98,18 +87,18 @@ def weathereport():
     display.draw_text(3,12,"Temp. [C]:}",bally)
     display.draw_text(3,21,"Pres. [KPa]:",bally)
     display.draw_text(3,30,"Humi. [%]:",bally)
-    display.draw_text(3,39,"Press BTNONE to Exit",bally, invert = True)
+    display.draw_text(3,39,"Press BTN1 to Exit",bally, invert = True)
     display.present()
     while btnone.is_pressed != True:
         t, p, h = sensor.read()
         display.draw_text(3,12,f"Temp. [C]: {round(t,2)} ",bally)
         display.draw_text(3,21,f"Pres. [KPa]: {round((p/1000),2)}",bally)
         display.draw_text(3,30,f"Humi. [%]: {round(h,2)}",bally)
-        display.draw_text(3,39,"Press BTN to Exit",bally, invert = True)
+        display.draw_text(3,39,"Press BTN1 to Exit",bally, invert = True)
         display.present()
         sleep(0.1)
     display.clear()
-    sleep(5)
+    sleep(1)
     
 
 
